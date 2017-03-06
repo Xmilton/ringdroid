@@ -347,7 +347,7 @@ public class RingdroidEditActivity extends Activity
                     (int)(mTouchStart + mOffset));
                 if (seekMsec >= mPlayStartMsec &&
                     seekMsec < mPlayEndMsec) {
-                    mPlayer.seekTo(seekMsec);
+                    mPlayer.seekTo(seekMsec, mPlayEndMsec);
                 } else {
                     handlePause();
                 }
@@ -1093,7 +1093,7 @@ public class RingdroidEditActivity extends Activity
             });
             mIsPlaying = true;
 
-            mPlayer.seekTo(mPlayStartMsec);
+            mPlayer.seekTo(mPlayStartMsec,mPlayEndMsec);
             mPlayer.start();
             updateDisplay();
             enableDisableButtons();
@@ -1314,7 +1314,7 @@ public class RingdroidEditActivity extends Activity
                                 return true;  // Keep going
                             }
                         };
-                    SoundFile.create(outPath, listener);
+//                    SoundFile.create(outPath, listener);
                 } catch (final Exception e) {
                     mProgressDialog.dismiss();
                     e.printStackTrace();
@@ -1527,7 +1527,7 @@ public class RingdroidEditActivity extends Activity
                     int newPos = mPlayer.getCurrentPosition() - 5000;
                     if (newPos < mPlayStartMsec)
                         newPos = mPlayStartMsec;
-                    mPlayer.seekTo(newPos);
+                    mPlayer.seekTo(newPos, mPlayEndMsec);
                 } else {
                     mStartMarker.requestFocus();
                     markerFocus(mStartMarker);
@@ -1541,7 +1541,7 @@ public class RingdroidEditActivity extends Activity
                     int newPos = 5000 + mPlayer.getCurrentPosition();
                     if (newPos > mPlayEndMsec)
                         newPos = mPlayEndMsec;
-                    mPlayer.seekTo(newPos);
+                    mPlayer.seekTo(newPos, mPlayEndMsec);
                 } else {
                     mEndMarker.requestFocus();
                     markerFocus(mEndMarker);
